@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
+
 Number_Points = 10
 class Points():
 
@@ -25,18 +26,17 @@ class Points():
                                         2 : y}
         return self.Points_Dicts
 
-    def sketch(self,m,b):
-        plt.scatter(self.Points_Created_x,self.Points_Created_y)
-        x = np.linspace(0, 100, 400)
-        y = m * x + b
-
+    def sketch(self,slope,intercept):
+        x = np.linspace(-20, 100, 40)
+        y = slope * x + intercept
         plt.plot(x, y, '-r', label='y=mx+b')
         plt.title('Graph of the line y = mx + b')
         plt.xlabel('x', color='#1C2833')
         plt.ylabel('y', color='#1C2833')
         plt.legend(loc='best')
-        plt.grid()
-        plt.show()
+        plt.grid(True)
+        plt.axis('equal')
+        return
 
     def find_partners(self):
         self.big_partner_dict = {}
@@ -61,21 +61,30 @@ class Points():
         y = mx + b
         """
         x1 = point1[1]
-        x2 = point1[2]
-        y1 = point2[1]
+        y1 = point1[2]
+        x2 = point2[1]
         y2 = point2[2]
         mid_x = ((x1 + x2)/2)
         mid_y = ((y1 + y2) /2)
 
-        if x2 - x1 == 0:  # Avoid division by zero
+        if x2 == x1:  # Avoid division by zero
             return None, None
-        else:
-            m = (y2 - y1) / (x2 - x1)
-            b = y1 - m * x1
-            m_perpendicular = m / (-1)
+        elif x2 > x1:
+            m = ((y2 - y1) / (x2 - x1))
+            m_perpendicular = (-1/m)
+            print(f"m ist {m} \nmp ist {m_perpendicular}")
+            b = y1 - x1 * m
+            b_perpendicular = mid_y - mid_x * m_perpendicular
+        elif x1 > x2:
+            m = ((y1 - y2) / (x1 - x2))
+            m_perpendicular = (-1/m)
+            print(f"m ist {m} \nmp ist {m_perpendicular}")
+            b = y1 - x1 * m
+            b_perpendicular = mid_y - mid_x * m_perpendicular
+        return round(m, 4), round(b, 4), round(m_perpendicular, 4), round(b_perpendicular, 4)
 
-
-            return round(m,2), round(b,2)
+    def on_the_right_track(self, b, m, points, partnedict, n_point):
+        Point = points[n_point]
 
 
 

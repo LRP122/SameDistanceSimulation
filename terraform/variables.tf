@@ -3,3 +3,4 @@ variable "bucketname" {
   default     = "MyRandomBucket"
   description = "Name of the Bucket you want to create"
 }
+
