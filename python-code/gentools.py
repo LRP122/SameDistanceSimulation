@@ -89,8 +89,7 @@ class Points():
             b_perpendicular = mid_y - mid_x * m_perpendicular
         return round(m_perpendicular, 4), round(b_perpendicular, 4), mid_x
 
-    def new_position(self,m_perpendicular, b_perpendicular, mid_x, point):
-        x_offset = random.uniform(-10,10)
+    def new_position(self,m_perpendicular, b_perpendicular, mid_x, point,x_offset):
         new_x = point[1] + x_offset
         new_y = m_perpendicular * new_x + b_perpendicular
         point[0] = new_x
@@ -112,6 +111,13 @@ class Points():
         DistCB = self.distance(point2,point3)
 
         return DistAC + DistCB + DistCB
+
+    def final_score(self,points,partners):
+        Score = 0
+        for i in range(len(points)):
+            Score += self.distance(points[i], points[partners[i][0]]) + self.distance(points[i], points[partners[i][1]])
+
+        return Score
 
 
 

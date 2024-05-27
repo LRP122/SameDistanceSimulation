@@ -1,9 +1,10 @@
 from gentools import *
 import matplotlib.pyplot as plt
 import itertools
+import copy
 
 plt.ion()
-a= 0
+
 
 # create an instance of the Points class
 Number_Points = 3
@@ -13,39 +14,37 @@ partners = P.find_partners(Number_Points)
 #for i in range(Number_Points):
  #   plt.scatter(points[i][0],points[i][1])
 #plt.show()
-combinations = list(itertools.combinations(points,2))
-print(partners)
-for i in range(10):
-    for i in range(Number_Points):
-        m_perpendicular, b_perpendicular, x_mid = (P.find_line_between_partners(
-                points[partners[i][0]],
-                points[partners[i][1]]))
-        if abs(P.distance(points[i],points[partners[i][0]]) - P.distance(points[i],points[partners[i][1]])) > 5:
-            while a < 100:
-                m_perpendicular, b_perpendicular, x_mid = (P.find_line_between_partners(
-                    points[partners[i][0]],
-                    points[partners[i][1]]))
-                test_point = P.new_position(m_perpendicular,b_perpendicular,x_mid, points[i])
-                DistanceZero = float("inf")
-                DistanceOne = P.minimizer(test_point, points[partners[i][0]],points[partners[i][1]])
-                if DistanceOne < DistanceZero:
-                    points[i] = test_point
-                a += 1
-        else:
-            print("Nah genug")
+Starter_Score = (P.final_score(points,partners))
+print(Starter_Score)
+count = 0
+
+while count < 11:
+    for a in range(Number_Points):
+        offset = -20
+        while offset < 20:
+
+            m_perpendicular, b_perpendicular, x_mid = (P.find_line_between_partners(
+                points[partners[a][0]],
+                points[partners[a][1]]))
+            points_test = copy.deepcopy(points)
+            test_point = P.new_position(m_perpendicular,b_perpendicular,x_mid, points_test[a], offset)
+
+            if (P.final_score(points_test,partners)) < (P.final_score(points,partners)):
+                points[a] = test_point
+            offset += 0.5
+
         plt.clf()
         for k in range(Number_Points):
             plt.scatter(points[k][0], points[k][1])
+        plt.xlabel("X")
+        plt.ylabel("Y")
         plt.draw()
         plt.pause(0.1)
+    count += 1
 
 
-#for i in range(Number_Points):
- #   plt.scatter(points[i][0],points[i][1])
-P.plot_linear_line(m_perpendicular,b_perpendicular)
-#plt.show()
+print(P.final_score(points,partners))
+print(points)
 
-print(P.distance(points[0],points[1]),P.distance(points[2],points[1]))
-print(P.distance(points[0],points[2]),P.distance(points[0],points[1]))
-print(P.distance(points[1],points[2]),P.distance(points[0],points[2]))
+
 
