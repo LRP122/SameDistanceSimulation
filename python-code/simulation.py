@@ -1,6 +1,5 @@
 from gentools import *
 import matplotlib.pyplot as plt
-import itertools
 import copy
 
 plt.ion()
