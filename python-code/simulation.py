@@ -7,18 +7,15 @@ plt.ion()
 
 
 # create an instance of the Points class
-Number_Points = 3
+Number_Points = 10
 P = Points()
 points = P.create(Number_Points)
 partners = P.find_partners(Number_Points)
-#for i in range(Number_Points):
- #   plt.scatter(points[i][0],points[i][1])
-#plt.show()
 Starter_Score = (P.final_score(points,partners))
-print(Starter_Score)
+
 count = 0
 
-while count < 11:
+while count < 5:
     for a in range(Number_Points):
         offset = -20
         while offset < 20:
@@ -31,7 +28,7 @@ while count < 11:
 
             if (P.final_score(points_test,partners)) < (P.final_score(points,partners)):
                 points[a] = test_point
-            offset += 0.5
+            offset += 0.1
 
         plt.clf()
         for k in range(Number_Points):
@@ -43,8 +40,7 @@ while count < 11:
     count += 1
 
 
-print(P.final_score(points,partners))
-print(points)
+print(f"Beginning Score {Starter_Score} \nFinal score {P.final_score(points,partners)}")
 
 
 
