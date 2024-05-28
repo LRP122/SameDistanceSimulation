@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 import copy
 
 plt.ion()
-
-
-# create an instance of the Points class
-Number_Points = 10
+Number_Points = 5
 P = Points()
 points = P.create(Number_Points)
 partners = P.find_partners(Number_Points)
 Starter_Score = (P.final_score(points,partners))
+
+colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+colors = colors * (Number_Points // len(colors)) + colors[:Number_Points % len(colors)]
 
 count = 0
 
@@ -31,9 +31,10 @@ while count < 5:
 
         plt.clf()
         for k in range(Number_Points):
-            plt.scatter(points[k][0], points[k][1])
+            plt.scatter(points[k][0], points[k][1], color=colors[k], label = f"Point {k}")
         plt.xlabel("X")
         plt.ylabel("Y")
+        plt.legend(loc="upper right")
         plt.draw()
         plt.pause(0.1)
     count += 1
