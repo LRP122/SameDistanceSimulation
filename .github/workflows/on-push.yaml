@@ -2,7 +2,7 @@ name: GitHub Actions Demo
 run-name: Check Functional Code
 on: [push]
 jobs:
-  Check Functional Code:
+  CheckFunctionalCode:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
