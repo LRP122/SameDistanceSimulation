@@ -10,4 +10,4 @@ jobs:
         with:
           python-version: 3.8
       - name: Run Python script
-        run: python python-code/simulation.py
+        run: python ./python-code/simulation.py
